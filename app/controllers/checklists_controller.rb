@@ -1,3 +1,4 @@
+require 'yaml'
 class ChecklistsController < ApplicationController
   # GET /checklists
   # GET /checklists.xml
@@ -56,7 +57,13 @@ class ChecklistsController < ApplicationController
   # PUT /checklists/1
   # PUT /checklists/1.xml
   def update
-    @checklist = Checklist.find(params[:id])
+	@checklist = Checklist.find(params[:id])
+
+	# we take the first line and make that the title
+	params[:checklist][:title] = Checklist.get_title_from_list params[:checklist][:list]
+	
+	# we take thelast line to get the email recipients
+	params[:checklist][:emails] = Checklist.get_emails_from_list params[:checklist][:list]
 
     respond_to do |format|
       if @checklist.update_attributes(params[:checklist])

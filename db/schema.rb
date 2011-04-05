@@ -10,13 +10,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110405002532) do
+ActiveRecord::Schema.define(:version => 20110405144142) do
 
   create_table "checklists", :force => true do |t|
     t.string   "title"
     t.text     "list"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "emails"
   end
 
 end

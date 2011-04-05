@@ -3,6 +3,10 @@ require 'test_helper'
 class ChecklistsControllerTest < ActionController::TestCase
   setup do
     @checklist = checklists(:one)
+	@update = {
+		:title	=> 'A new title',
+		:list	=> 'A short checklist'
+	}
   end
 
   test "should get index" do
