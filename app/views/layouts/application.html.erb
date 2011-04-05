@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cla</title>
+  <%= stylesheet_link_tag :all %>
+  <%= javascript_include_tag :defaults %>
+  <%= javascript_include_tag 'jquery' %>
+  <%= javascript_include_tag 'core' %>
+  <%= csrf_meta_tag %>
+</head>
+<body>
+	
+<div class="container_12">
+	<h1>Checklist App</h1>
+	
+	<br />
+</div>
+
+<div class="container_12">
+<%= yield %>
+</div>
+
+</body>
+</html>

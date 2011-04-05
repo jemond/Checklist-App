@@ -1,0 +1,117 @@
+@charset "utf-8";
+/* CSS Document */
+
+BODY {
+	font-family:Georgia, "Times New Roman", Times, serif;
+	padding: 0;
+	margin: 0;
+}
+
+.button {
+	font-size:115%;
+}
+
+#Body {
+	padding-left: 10px;
+}
+
+#SubmitArea {	
+	padding-top:10px;
+	background-color:#F2F0EA;
+	padding-left:6px;
+	padding-bottom:8px;
+	width:594px;
+	border:1px solid #ADABA8;
+}
+
+#SubmitAreaControls {
+	float: left;
+}
+
+#SubmitAreaLoading {
+	float:right;
+	padding-top: 6px;
+	padding-right: 6px;
+}
+
+#ActionPane {
+	position: absolute;
+	text-align: center;
+	top:0;
+	left: 45%;
+	font-weight: bold;
+	background-color:#FF0;
+	padding: 5px;
+}
+
+H1 {
+	margin-bottom: 5px;
+	margin-top: 5px;
+}
+
+H2 {
+	margin:0;
+}
+
+H2 .link {
+	font-size:65%;
+}
+.link {
+	color:#666;
+}
+
+.link A:hover {
+	background-color:#09F;
+	padding:2px;
+	padding-right:4px;
+}
+
+H3.emails {
+	font-size:100%;
+	color:#333;
+	font-weight:normal;
+	padding:0;
+	margin:0;
+}
+
+.checklistbox {
+	width:600px;
+	height:15em;
+	border:none;
+}
+
+.textarea {
+	border-left:1px solid #ADABA8;
+	border-right:1px solid #ADABA8;
+	border-top:1px solid #ADABA8;
+	width:600px;
+}
+
+TEXTAREA {
+	padding:2px;
+}
+
+#PreviewBox {
+	float: left;
+	width: 30em;
+	padding-left: 10px;
+}
+
+#EditForm {
+	float: left;
+}
+
+#flashMessage.message {
+	background-color:#0F0;
+	border: 3px solid #005F0D;
+	font-weight:bold;
+	padding-left:7px;
+	padding-top:10px;
+	padding-bottom:10px;
+	width: 35em;
+	margin-top: 8px;
+}
+
+#ChecklistPreview {
+	float:right;
+}
