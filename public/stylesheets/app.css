@@ -26,16 +26,33 @@ H2 .link {
 	font-size:65%;
 }
 
-.button {
-	font-size:115%;
+A:hover {
+	background-color: blue;
+	color: white;
 }
 
 /* Helpers */
 /* Helpers */
 /* Helpers */
 
+.button {
+	font-size:115%;
+}
+
 .leftspacer { /* don't put on the grid */
 	margin-left: 10px;
+}
+
+#notice {
+	background-color: yellow;
+	margin-top: 3px;
+	padding-left: 7px;
+	padding-right: 7px;
+}
+
+#notice P {
+	padding-top: 3px;
+	padding-bottom: 3px;
 }
 
 /* Struts */
@@ -48,6 +65,15 @@ H2 .link {
 
 .header H1 {
 	color: white;
+}
+
+.checklist_title A {
+	text-decoration: none;
+}
+
+.checklist_title SPAN {
+	font-size:60%;
+	color: #888;
 }
 
 /* Checklist edit screen */

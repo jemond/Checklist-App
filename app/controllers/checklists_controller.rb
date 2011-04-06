@@ -3,7 +3,7 @@ class ChecklistsController < ApplicationController
   # GET /checklists
   # GET /checklists.xml
   def index
-    @checklists = Checklist.all(:select=>'id,list,title',:order=>'updated_at DESC')
+    @checklists = Checklist.all(:select=>'id,list,title,updated_at',:order=>'updated_at DESC')
 
     respond_to do |format|
       format.html # index.html.erb

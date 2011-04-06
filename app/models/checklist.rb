@@ -1,13 +1,14 @@
 class Checklist < ActiveRecord::Base
 	validates_presence_of :list, :message => 'can\'t be blank'
 	
-	# we split off a bunch of stuff automagically from the list body to make it easier to use
+	# we split off a bunch of stuff automagically from the list body to make it easier to use for the user
 	def self.get_title_from_list list
 		@lines = list.split("\n")
 		return @lines[0]
 	end
 	
-	# the last line of a checklist should contains emails
+	# the last line of a checklist should contain emails to send the checklist to.
+	# if it doesn't, then it's the last checklist item
 	def self.get_emails_from_list list
 		lastline = list.split("\n").last
 		return is_email_list lastline.strip

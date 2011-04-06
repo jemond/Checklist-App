@@ -2,18 +2,19 @@
 <div class="grid_8">
 	
 	<% @checklists.each do |checklist| %>
-		<h2><%= checklist.title %></h2>
-		<p><%= format_list_for_display checklist.list %></p>
+		<h2 class="checklist_title">
+			<%= link_to checklist.title, checklist, :title=>'Fill out the checklist' %>
+			<span>updated <%= prettify checklist.updated_at %></span>
+		</h2>
 		
-		<p>
-			<%= link_to 'Show', checklist %> |
-			<%= link_to 'Edit', edit_checklist_path(checklist) %> |
-			<%= link_to 'Destroy', checklist, :confirm => 'Are you sure?', :method => :delete %>
-		</p>
+		<%= raw format_list_to_summary checklist.list %>
 	<% end %>
 	
 </div>
 
 <div class="grid_4">
-	<%= link_to 'New Checklist', new_checklist_path %>
+	<p><%= link_to 'New Checklist', new_checklist_path %></p>
+	
+	<h2>Users</h2>
+	
 </div>

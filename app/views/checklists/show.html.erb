@@ -1,11 +1,21 @@
 <% content_for(:title, @checklist.title) %>
-<div class="grid_12">
-	<div id="notice"><p><%= notice %></p></div>
+<div class="grid_8">
+	<div id="notice" style="display:<%= notice ? 'inherit' : 'none' %>"><p><%= notice %></p></div>
 
-	<h2><%=h yield(:title) %></h2>
+	<h2 class="checklist_title">
+		<%=h yield(:title) %>
+		<span>
+			<%= link_to 'Edit', edit_checklist_path(@checklist) %>
+		</span>
+	</h2>
 	
-	<%= @checklist.list %>
+	<%= raw convert_into_list @checklist.list %>
 	
-	<%= link_to 'Edit', edit_checklist_path(@checklist) %> |
-	<%= link_to 'Back', checklists_path %>
+	<p><%= link_to 'Delete', @checklist, :confirm => 'Are you sure?', :method => :delete %></p>
+
+</div>
+
+<div class="grid_4">
+	<h2>Filled out by</h2>
+	...
 </div>
