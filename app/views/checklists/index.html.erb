@@ -1,25 +1,24 @@
 <% content_for(:title, 'Listing checklists') %>
 <div class="grid_12">
-	<h1><%=h yield(:title) %></h1>
 	
-	<table>
-	  <tr>
-		<th>Title</th>
-		<th>List</th>
-		<th></th>
-		<th></th>
-		<th></th>
-	  </tr>
-	
-	<% @checklists.each do |checklist| %>
-	  <tr>
-		<td><%= checklist.title %></td>
-		<td><%= checklist.list %></td>
-		<td><%= link_to 'Show', checklist %></td>
-		<td><%= link_to 'Edit', edit_checklist_path(checklist) %></td>
-		<td><%= link_to 'Destroy', checklist, :confirm => 'Are you sure?', :method => :delete %></td>
-	  </tr>
-	<% end %>
+	<table summary="All your checklists, most recently updated first">
+		<tr>
+			<th>Title</th>
+			<th>List</th>
+			<th></th>
+			<th></th>
+			<th></th>
+		</tr>
+		
+		<% @checklists.each do |checklist| %>
+		<tr>
+			<td><%= checklist.title %></td>
+			<td><%= checklist.list %></td>
+			<td><%= link_to 'Show', checklist %></td>
+			<td><%= link_to 'Edit', edit_checklist_path(checklist) %></td>
+			<td><%= link_to 'Destroy', checklist, :confirm => 'Are you sure?', :method => :delete %></td>
+		</tr>
+		<% end %>
 	</table>
 	
 	<br />

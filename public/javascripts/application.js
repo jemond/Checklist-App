@@ -75,7 +75,7 @@ $(document).ready(function() {
 			}
 		}
 		
-		emails = isEmail ? '<h3>Emailing when complete: '+emails+'</h3>' : '';
+		emails = isEmail ? '<h3 class="emails">Emailing when complete: '+emails+'</h3>' : '';
 			
 		$('#PreviewBox').empty().html('<h2>'+title+'</h2><ol>'+items+'</ol>'+emails);
 	}).trigger('keyup');
