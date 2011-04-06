@@ -9,9 +9,16 @@
 		</span>
 	</h2>
 	
-	<%= raw convert_into_list @checklist.list %>
+	<%= raw convert_to_list @checklist.list %>
 	
-	<p><%= link_to 'Delete', @checklist, :confirm => 'Are you sure?', :method => :delete %></p>
+	<% unless @checklist.emails.nil? %>
+		Emailing <%= @checklist.emails %>
+	<% end %>
+	
+	<p>
+		<%= link_to 'Back', checklists_path %> |
+		<%= link_to 'Delete', @checklist, :confirm => 'Are you sure?', :method => :delete %>
+	</p>
 
 </div>
 

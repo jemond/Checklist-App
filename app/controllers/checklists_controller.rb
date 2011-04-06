@@ -14,7 +14,7 @@ class ChecklistsController < ApplicationController
   # GET /checklists/1
   # GET /checklists/1.xml
   def show
-    @checklist = Checklist.find(params[:id])
+    @checklist = Checklist.prepare_list Checklist.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -63,7 +63,7 @@ class ChecklistsController < ApplicationController
 	params[:checklist][:title] = Checklist.get_title_from_list params[:checklist][:list]
 	
 	# we take thelast line to get the email recipients
-	params[:checklist][:emails] = Checklist.get_emails_from_list params[:checklist][:list]
+	params[:checklist][:emails] = Checklist.prepare_emails_for_save Checklist.get_emails_from_list params[:checklist][:list]
 
     respond_to do |format|
       if @checklist.update_attributes(params[:checklist])

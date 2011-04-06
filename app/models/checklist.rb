@@ -25,17 +25,36 @@ class Checklist < ActiveRecord::Base
 					break # since we don't care if more than one entry is bad
 				end
 			end
+			
+			unless emails.nil?
+				emails = emails.join(', ')
+			end
 		else
 			unless is_email emails
 				emails = nil
 			end
 		end
 		
-		return emails.to_s
+		return emails
 	end
 	
 	# check if a little email is valid
 	def self.is_email email
 		return email =~ /^[a-zA-Z][\w\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$/ ? true : false
+	end
+	
+	# pull out parts from the list we don't need
+	def self.prepare_list checklist
+		# the first line is always the title
+		checklist.list = checklist.list.lines.to_a[1..-1].join
+		
+		# the last line might be emails, which is optional
+		checklist.list = ( ( get_emails_from_list checklist.list) != '' ) ? checklist.list.lines.to_a[0..-2].join : checklist.list
+		
+		return checklist
+	end
+	
+	def self.prepare_emails_for_save emails
+		return emails
 	end
 end
