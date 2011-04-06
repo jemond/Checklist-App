@@ -7,7 +7,7 @@ class Checklist < ActiveRecord::Base
 		return @lines[0]
 	end
 	
-	# the last line ofa checklist should contains emails
+	# the last line of a checklist should contains emails
 	def self.get_emails_from_list list
 		lastline = list.split("\n").last
 		return is_email_list lastline.strip
