@@ -1,19 +1,26 @@
+<% content_for(:title, 'Edit your checklist') %>
 <div class="grid_8">
+
+	<h2><%=h yield(:title) %></h2>
 
 	<%= form_for @checklist do %>
 	
-		<%= text_area_tag('checklist[list]',@checklist.list,:id=>'ChecklistBody') %><br />
-		<%= submit_tag 'Save Checklist' %>
+		<div class="textarea">
+			<%= text_area_tag('checklist[list]',@checklist.list,:id=>'ChecklistBody',:rows=>6,:cols=>30,:class=>'checklistbox') %><br />
+		</div>
+		
+		<div id="SubmitArea">
+			<div id="SubmitAreaControls">
+				<%= submit_tag 'Save', :class=>'button' %>
+				<%= link_to 'Cancel', checklists_path %>
+			</div>
+			<br clear="all" />
+		</div>
 	
 	<% end %>
-	
-	<%= link_to 'Show', @checklist %> |
-	<%= link_to 'Back', checklists_path %>
 
 </div>
 
 <div class="grid_4">
-	<div id="PreviewBox">
-		
-	</div>
+	<div id="PreviewBox"></div>
 </div>

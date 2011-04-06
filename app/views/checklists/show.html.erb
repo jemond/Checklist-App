@@ -1,8 +1,11 @@
-<p id="notice"><%= notice %></p>
+<% content_for(:title, @checklist.title) %>
+<div class="grid_12">
+	<div id="notice"><p><%= notice %></p></div>
 
-<h2><%= @checklist.title %></h2>
-
-<%= @checklist.list %>
-
-<%= link_to 'Edit', edit_checklist_path(@checklist) %> |
-<%= link_to 'Back', checklists_path %>
+	<h2><%=h yield(:title) %></h2>
+	
+	<%= @checklist.list %>
+	
+	<%= link_to 'Edit', edit_checklist_path(@checklist) %> |
+	<%= link_to 'Back', checklists_path %>
+</div>

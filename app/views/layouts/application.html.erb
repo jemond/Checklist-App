@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Cla</title>
-  <%= stylesheet_link_tag :all %>
-  <%= javascript_include_tag 'jquery' %>
-  <%= javascript_include_tag :defaults %>
-  <%= javascript_include_tag 'core' %>
+  <title><%=h yield(:title) %></title>
+  <%= stylesheet_link_tag 'app', 'grid' %>
+  <%= javascript_include_tag 'jquery', 'core', 'application' %>
   <%= csrf_meta_tag %>
 </head>
 <body>
