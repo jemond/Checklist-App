@@ -1,4 +1,5 @@
 // http://blog.mythin.net/projects/jquery.php
+/*
 $.fn.pause = function(milli,type) {
 	milli = milli || 1000;
 	type = type || "fx";
@@ -38,3 +39,4 @@ function validateEmail(email) {
 String.prototype.trim=function(){a=this.replace(/^\s+/,'');return a.replace(/\s+$/,'');};
 
 // to do: pr (just append to body end), empty, isdefined,len for string,array
+*/

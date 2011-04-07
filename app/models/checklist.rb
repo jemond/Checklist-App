@@ -10,7 +10,12 @@ class Checklist < ActiveRecord::Base
 	# the last line of a checklist should contain emails to send the checklist to.
 	# if it doesn't, then it's the last checklist item
 	def self.get_emails_from_list list
-		lastline = list.split("\n").last
+		if(list.kind_of?(Array))
+			lastline = list.last
+		else
+			lastline = list.split("\n").last
+		end
+		
 		return is_email_list lastline.strip
 	end
 	
@@ -45,12 +50,30 @@ class Checklist < ActiveRecord::Base
 	
 	# pull out parts from the list we don't need
 	def self.prepare_list checklist
+		#make an array
+		checklist.list = checklist.list.lines.to_a
+		
 		# the first line is always the title
-		checklist.list = checklist.list.lines.to_a[1..-1].join
+		checklist.list = checklist.list[1..-1]
 		
 		# the last line might be emails, which is optional
-		checklist.list = ( ( get_emails_from_list checklist.list) != '' ) ? checklist.list.lines.to_a[0..-2].join : checklist.list
+		checklist.list = ( ( get_emails_from_list checklist.list) != '' ) ? checklist.list[0..-2] : checklist.list
+		
+		# remove the optional line numbers the user might enter so we can build it out in the view
+		# make it an array so we can output cleanly in the view		
+		checklist.list.each_with_index do |item,i|
+			checklist.list[i] = item.gsub(/[0-9]+[ ]?[\.]?[\-]?/,'')
+		end
 		
 		return checklist
+	end
+	
+	def self.prepare_lists checklists
+		checklists.each_with_index do |list,i|
+			checklists[i] = Checklist.prepare_list list
+			checklists[i].list = checklists[i].list[1..3]
+		end
+		
+		return checklists
 	end
 end

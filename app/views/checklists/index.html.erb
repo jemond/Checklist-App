@@ -4,10 +4,14 @@
 	<% @checklists.each do |checklist| %>
 		<h2 class="checklist_title">
 			<%= link_to checklist.title, checklist, :title=>'Fill out the checklist' %>
-			<span>updated <%= prettify checklist.updated_at %></span>
+			<span>updated <%= time_ago_in_words checklist.updated_at %></span>
 		</h2>
 		
-		<%= raw format_list_to_summary checklist.list %>
+		<ol>
+		<% checklist.list.each do |item| %>
+			<li><%= item %></li>
+		<% end %>
+		</ol>		
 	<% end %>
 	
 </div>

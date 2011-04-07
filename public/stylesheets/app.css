@@ -57,6 +57,12 @@ A:hover {
 	padding-bottom: 3px;
 }
 
+.strikeout {
+	text-decoration: line-through;
+	font-size: 75%;
+	color: #888;
+}
+
 /* Struts */
 /* Struts */
 /* Struts */

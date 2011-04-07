@@ -1,5 +1,7 @@
 Cla::Application.routes.draw do
   resources :checklists
+  
+  match 'checklists/:id/checkoff' => 'checklists#checkoff'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

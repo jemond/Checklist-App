@@ -1,15 +1,46 @@
 <% content_for(:title, @checklist.title) %>
+
+<script type="text/javascript">
+	Event.observe(window, 'load', function() {
+		$$('.checkoff-link').each(function(element) {
+			element.observe('ajax:success', successfulCheckOff);
+		});
+	});
+	
+	// when they tick it off, check it off
+	function successfulCheckOff(event) {
+		// shrink and strike out the text
+		var element = event.element();
+		var label = $(getLabelIdFromLinkId(element.id));
+		
+		label.addClassName('strikeout');
+	}
+	
+	// translate the ID from the link that calls the ajax to the id of the li in question
+	function getLabelIdFromLinkId(linkid) {		
+		return linkid.replace('link_','label_');
+	}
+</script>
+
 <div class="grid_8">
 	<div id="notice" style="display:<%= notice ? 'inherit' : 'none' %>"><p><%= notice %></p></div>
 
 	<h2 class="checklist_title">
 		<%=h yield(:title) %>
 		<span>
-			<%= link_to 'Edit', edit_checklist_path(@checklist) %>
+			<%= link_to 'Edit', edit_checklist_path(@checklist), :title=>'Change the checklist' %>
 		</span>
 	</h2>
 	
-	<%= raw convert_to_list @checklist.list %>
+	<ol title="The checklsit items">
+		<% @checklist.list.each_with_index do |item, i| %>
+			<li id="<%= 'li_'+i.to_s %>">
+				<%= check_box 'item'+(i.to_s), 0 %>
+				<label for="<%= 'item'+i.to_s+'_0' %>" id="<%= 'label_'+i.to_s %>"><%= item %></label>
+				<%= link_to "Checkoff", { :action=>'checkoff', :id=>@checklist.id }, :remote=>true, :class => 'checkoff-link', :id=>'link_'+i.to_s %>
+			</li>
+		<% end %>
+	</ol>
 	
 	<% unless @checklist.emails.nil? %>
 		Emailing <%= @checklist.emails %>
