@@ -53,8 +53,4 @@ class Checklist < ActiveRecord::Base
 		
 		return checklist
 	end
-	
-	def self.prepare_emails_for_save emails
-		return emails
-	end
 end

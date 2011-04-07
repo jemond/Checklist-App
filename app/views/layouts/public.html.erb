@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%=h yield(:title) %></title>
+  <%= stylesheet_link_tag 'common', 'public', 'grid' %>
+  <%= csrf_meta_tag %>
+</head>
+<body>
+	
+<div class="header">
+	<div class="container_12 clearfix">
+		<div class="grid_6">
+			<h1><%= link_to 'Checklist App', :action=>'index' %></h1>
+		</div>
+		
+		<div class="grid_6 textright">
+			<div class="navigation">
+				<%= link_to 'About', :action=>'about' %>
+				<%= link_to 'Samples', :action=>'samples' %>
+				<%= link_to 'Sign up', :action=>'index' %>
+				<%= link_to 'Login', :action=>'index' %>
+			</div>
+		</div>		
+	</div>
+</div>
+
+<div class="container_12">
+<%= yield %>
+</div>
+
+<div class="footer">
+	<div class="container_12">
+		<div class="grid_12 textcenter">
+			<p>
+				&copy; 2011 62 Cents Software LLC ~
+			
+				<%= link_to 'About', :action=>'index' %> |
+				<%= link_to 'Samples', :action=>'samples' %> |
+				<%= link_to 'Sign up', :action=>'index' %> |
+				<%= link_to 'Login', :action=>'index' %>
+			</p>
+		</div>
+	</div>
+</div>
+
+</body>
+</html>

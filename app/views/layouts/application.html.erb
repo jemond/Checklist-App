@@ -2,7 +2,7 @@
 <html>
 <head>
   <title><%=h yield(:title) %></title>
-  <%= stylesheet_link_tag 'app', 'grid' %>
+  <%= stylesheet_link_tag 'common','app', 'grid' %>
   <%= javascript_include_tag 'jquery', 'core', 'application' %>
   <%= csrf_meta_tag %>
 </head>
@@ -11,7 +11,7 @@
 <div class="header">
 	<div class="container_12 clearfix">
 		<div class="grid_12">
-			<h1>Checklist App</h1>
+			<h1><%= link_to 'Checklist App', :action => 'index' %></h1>
 		</div>
 	</div>
 </div>

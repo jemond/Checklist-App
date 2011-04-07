@@ -63,7 +63,7 @@ class ChecklistsController < ApplicationController
 	params[:checklist][:title] = Checklist.get_title_from_list params[:checklist][:list]
 	
 	# we take thelast line to get the email recipients
-	params[:checklist][:emails] = Checklist.prepare_emails_for_save Checklist.get_emails_from_list params[:checklist][:list]
+	params[:checklist][:emails] = Checklist.get_emails_from_list params[:checklist][:list]
 
     respond_to do |format|
       if @checklist.update_attributes(params[:checklist])

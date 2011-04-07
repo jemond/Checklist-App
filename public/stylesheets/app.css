@@ -1,12 +1,14 @@
 @charset "utf-8";
 
+/*
+ http://www.colourlovers.com/print/trends/magazines/7871/Pop_Africana_|_Year1_Issue1
+*/
+
 /* Site-wide resets */
 /* Site-wide resets */
 /* Site-wide resets */
 BODY {
 	font-family:Georgia, "Times New Roman", Times, serif;
-	padding: 0;
-	margin: 0;
 }
 
 H1, H2, H3, H4 {
@@ -60,11 +62,20 @@ A:hover {
 /* Struts */
 
 .header {
-	background-color: #999;
+	background-color: #3F4038;
 }
 
 .header H1 {
 	color: white;
+}
+
+.header H1 A {
+	text-decoration: none;
+	color: #62BECB;
+}
+
+.header H1 A:hover {
+	background: none;
 }
 
 .checklist_title A {
