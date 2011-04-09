@@ -3,7 +3,7 @@ class Instance < ActiveRecord::Base
 	
 	# determine if we need a new instance or not for a user checking off an item
 	def self.exists checklist_id
-		instance = Instance.find(:all, :select => 'id, finished_items', :conditions => ['checklist_id = ? and finished <> ?',checklist_id,1 ], :order=>'created_at DESC', :limit=>1)
+		instance = Instance.find(:all, :select => 'id, finished_items, updated_at', :conditions => ['checklist_id = ? and finished <> ?',checklist_id,1 ], :order=>'created_at DESC', :limit=>1)
 		
 		return instance.empty? ? false : instance[0]
 	end

@@ -9,17 +9,28 @@
 	});
 	
 	// when they tick it off, check it off
-	function successfulCheckOff(event) {
-		// shrink and strike out the text
-		var element = event.element();
+	function successfulCheckOff(e) {
+		// we get the instance back, and sniff the finished_items
+		var response = e.memo.responseJSON.instance;
+		var element = e.element();
 		var label = $(getLabelIdFromLinkId(element.id));
 		
-		label.addClassName('strikeout');
+		// if our item id in question is in the returned finished_items, strikeout, otherwise, strikein
+		if(response.finished_items.indexOf(getItemNumberFromLinkId(element.id)) > 0) {
+			label.addClassName('strikeout');
+		} else {
+			label.removeClassName('strikeout');
+		}		
 	}
 	
 	// translate the ID from the link that calls the ajax to the id of the li in question
 	function getLabelIdFromLinkId(linkid) {		
 		return linkid.replace('link_','label_');
+	}
+	
+	// get the 2 from link_2
+	function getItemNumberFromLinkId(linkid) {
+		return linkid.replace('link_','');
 	}
 </script>
 
@@ -33,11 +44,16 @@
 		</span>
 	</h2>
 	
+	<% if @instance %>
+		<p>Last updated by you <%= time_ago_in_words @instance.updated_at %> ago:</p>
+	<% end %>
+	
 	<ol title="The checklsit items">
 		<% @checklist.list.each_with_index do |item, i| %>
 			<li id="<%= 'li_'+i.to_s %>">
 				<%= check_box 'item'+(i.to_s), 0 %>
-				<label for="<%= 'item'+i.to_s+'_0' %>" id="<%= 'label_'+i.to_s %>" class="<%= @instance.finished_items.include?(i.to_s) ? 'strikeout' : '' %>"><%= item %></label>
+				<label for="<%= 'item'+i.to_s+'_0' %>" id="<%= 'label_'+i.to_s %>"
+						class="<%= 'strikeout' if @instance and @instance.finished_items.include?(i.to_s) %>"><%= item %></label>
 				<%= link_to "Checkoff", { :action=>'checkoff', :id=>@checklist.id, :item=>i }, :remote=>true, :class => 'checkoff-link', :id=>'link_'+i.to_s %>
 			</li>
 		<% end %>

@@ -15,8 +15,6 @@ class ChecklistsController < ApplicationController
   
 	# what happens when a user checks off a checklist item
 	def checkoff
-		render :layout => false
-		
 		if request.xhr?
 			# Events we need to capture: start a new instance, update existing instance, email complete!
 			
@@ -26,9 +24,12 @@ class ChecklistsController < ApplicationController
 			# if it doesn't exist, create it			
 			instance = Instance.get_or_create params[:id]
 			
-			# Update what item was just finished
+			# Update what item was just checked or checked off
 			Instance.update_finished_items instance.id, instance.finished_items, params[:item]			
 			
+			respond_to do |format|
+				format.json { render :json => instance }
+			end
 		end
 	end
 
