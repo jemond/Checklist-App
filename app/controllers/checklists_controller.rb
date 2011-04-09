@@ -17,8 +17,18 @@ class ChecklistsController < ApplicationController
 	def checkoff
 		render :layout => false
 		
-		if (request.xhr?)
-			puts 'ajax!'
+		if request.xhr?
+			# Events we need to capture: start a new instance, update existing instance, email complete!
+			
+			# Event: Start a new instance
+			# an instance of the checklist is one that is filled out by this user, isn't complete, and is the most recent
+			# they will only have one active instance at any time
+			# if it doesn't exist, create it			
+			instance = Instance.get_or_create params[:id]
+			
+			# Update what item was just finished
+			Instance.update_finished_items instance.id, instance.finished_items, params[:item]			
+			
 		end
 	end
 
@@ -26,6 +36,7 @@ class ChecklistsController < ApplicationController
 	# GET /checklists/1.xml
 	def show
 		@checklist = Checklist.prepare_list Checklist.find(params[:id])
+		@instance = Instance.exists params[:id]
 		
 		respond_to do |format|
 			format.html # show.html.erb
