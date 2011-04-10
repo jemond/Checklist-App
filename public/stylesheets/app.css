@@ -97,6 +97,10 @@ A:hover {
 /* Checklist edit screen */
 /* Checklist edit screen */
 
+#FinishedBlock {
+	padding: 10px;
+}
+
 #SubmitArea {	
 	padding-top:10px;
 	background-color:#F2F0EA;

@@ -16,11 +16,18 @@
 		var label = $(getLabelIdFromLinkId(element.id));
 		
 		// if our item id in question is in the returned finished_items, strikeout, otherwise, strikein
-		if(response.finished_items.indexOf(getItemNumberFromLinkId(element.id)) > 0) {
+		if(response.finished_items.indexOf(getItemNumberFromLinkId(element.id)) >= 0) {
 			label.addClassName('strikeout');
 		} else {
 			label.removeClassName('strikeout');
-		}		
+		}
+		
+		// if this is the last item, then we have show the finish control
+		if(isChecklistFinished()) {
+			$('FinishedBlock').show().highlight();
+		}
+		else
+			$('FinishedBlock').hide();
 	}
 	
 	// translate the ID from the link that calls the ajax to the id of the li in question
@@ -31,6 +38,19 @@
 	// get the 2 from link_2
 	function getItemNumberFromLinkId(linkid) {
 		return linkid.replace('link_','');
+	}
+	
+	// if all items are striked-out, then it's finished
+	function isChecklistFinished() {
+		finished = true;
+		$$('.itemlabel').each(function(element) {
+			if(!element.hasClassName('strikeout')) {
+				finished = false;
+				return false;
+			}
+		});
+		
+		return finished;
 	}
 </script>
 
@@ -53,15 +73,15 @@
 			<li id="<%= 'li_'+i.to_s %>">
 				<%= check_box 'item'+(i.to_s), 0 %>
 				<label for="<%= 'item'+i.to_s+'_0' %>" id="<%= 'label_'+i.to_s %>"
-						class="<%= 'strikeout' if @instance and @instance.finished_items.include?(i.to_s) %>"><%= item %></label>
+						class="itemlabel <%= 'strikeout' if @instance and @instance.finished_items.include?(i.to_s) %>"><%= item %></label>
 				<%= link_to "Checkoff", { :action=>'checkoff', :id=>@checklist.id, :item=>i }, :remote=>true, :class => 'checkoff-link', :id=>'link_'+i.to_s %>
 			</li>
 		<% end %>
 	</ol>
 	
-	<% unless @checklist.emails.nil? %>
-		Emailing <%= @checklist.emails %>
-	<% end %>
+	<div id="FinishedBlock" style="<%= @instance and @instance.finished_items.count == @checklist.list.count ? 'display:block' : 'display:none' %>">
+		<%= link_to 'Finish this checklist', { :action=>'finish', :id=>@checklist.id }, :remote=>true %> <%= 'by emailing ' + @checklist.emails unless @checklist.emails.nil? %>
+	</div>
 	
 	<p>
 		<%= link_to 'Back', checklists_path %> |

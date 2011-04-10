@@ -32,6 +32,13 @@ class ChecklistsController < ApplicationController
 			end
 		end
 	end
+	
+	# when all items done, they can finish it
+	def finish
+		if request.xhr?
+			
+		end
+	end
 
 	# GET /checklists/1
 	# GET /checklists/1.xml
