@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110408011431) do
+ActiveRecord::Schema.define(:version => 20110410205531) do
 
   create_table "checklists", :force => true do |t|
     t.string   "title"
@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(:version => 20110408011431) do
     t.datetime "updated_at"
     t.text     "list"
     t.string   "finished_items"
+    t.string   "emails"
   end
 
 end

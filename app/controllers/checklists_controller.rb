@@ -25,7 +25,7 @@ class ChecklistsController < ApplicationController
 			instance = Instance.get_or_create params[:id]
 			
 			# Update what item was just checked or checked off
-			Instance.update_finished_items instance.id, instance.finished_items, params[:item]			
+			instance.finished_items = Instance.update_finished_items instance.id, instance.finished_items, params[:item]			
 			
 			respond_to do |format|
 				format.json { render :json => instance }
@@ -36,7 +36,14 @@ class ChecklistsController < ApplicationController
 	# when all items done, they can finish it
 	def finish
 		if request.xhr?
+			instance = Instance.get_or_create params[:id]
+			title = Checklist.get_title_from_list instance.list
 			
+			# send email
+			Notifier.checklist_finished(title, instance.emails).deliver
+			
+			# mark as finished
+			# Instance.finish Instance.get_or_create params[:id]
 		end
 	end
 
@@ -44,7 +51,7 @@ class ChecklistsController < ApplicationController
 	# GET /checklists/1.xml
 	def show
 		@checklist = Checklist.prepare_list Checklist.find(params[:id])
-		@instance = Instance.exists params[:id]
+		@instance = Instance.get_or_create params[:id]
 		
 		respond_to do |format|
 			format.html # show.html.erb
