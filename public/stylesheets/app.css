@@ -45,18 +45,6 @@ A:hover {
 	margin-left: 10px;
 }
 
-#notice {
-	background-color: yellow;
-	margin-top: 3px;
-	padding-left: 7px;
-	padding-right: 7px;
-}
-
-#notice P {
-	padding-top: 3px;
-	padding-bottom: 3px;
-}
-
 .strikeout {
 	text-decoration: line-through;
 	font-size: 75%;
@@ -95,6 +83,28 @@ A:hover {
 
 .yo { /* pay attention to me! */
 	background-color: yellow;
+}
+
+#Flash {
+	margin-top: 5px;
+	padding-left: 12px;
+	padding-right: 12px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	display: inline-block;
+}
+
+#Flash.success {
+	background-color: #00CC00;
+}
+
+#Flash.notice {
+	background-color: yellow;
+}
+
+#Flash P {
+	margin: 0;
+	padding: 0;
 }
 
 /* Checklist edit screen */

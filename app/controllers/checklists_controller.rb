@@ -34,24 +34,30 @@ class ChecklistsController < ApplicationController
 	end
 	
 	# when all items done, they can finish it
-	def finish
-		if request.xhr?
-			instance = Instance.get_or_create params[:id]
-			title = Checklist.get_title_from_list instance.list
-			
-			# send email
-			Notifier.checklist_finished(title, instance.emails).deliver
-			
-			# mark as finished
-			# Instance.finish Instance.get_or_create params[:id]
+	def finish		
+		instance = Instance.get_or_create params[:id]
+		title = Checklist.get_title_from_list instance.list
+		
+		# send email
+		instance.emails.split(',').each do |email|
+			email.strip!
+			Notifier.checklist_finished(title, email).deliver if Checklist.is_email email
 		end
+		
+		# mark as finished
+		Instance.finish Instance.get_or_create params[:id]
+		
+		# send em!
+		flash[:success] = 'We emailed your team (' + instance.emails + ') to let them know the checklist was completed.'
+		redirect_to checklists_path
 	end
 
 	# GET /checklists/1
 	# GET /checklists/1.xml
 	def show
 		@checklist = Checklist.prepare_list Checklist.find(params[:id])
-		@instance = Instance.get_or_create params[:id]
+		@instance = Checklist.prepare_list Instance.get_or_create params[:id]
+		@previous = Instance.get_previous params[:id]
 		
 		respond_to do |format|
 			format.html # show.html.erb
@@ -82,7 +88,8 @@ class ChecklistsController < ApplicationController
 		
 		respond_to do |format|
 			if @checklist.save
-				format.html { redirect_to(@checklist, :notice => 'Checklist was successfully created.') }
+				flash[:success] = 'Your checklist was created!'
+				format.html { redirect_to(@checklist) }
 				format.xml  { render :xml => @checklist, :status => :created, :location => @checklist }
 			else
 				format.html { render :action => "new" }
@@ -104,7 +111,8 @@ class ChecklistsController < ApplicationController
 		
 		respond_to do |format|
 			if @checklist.update_attributes(params[:checklist])
-				format.html { redirect_to(@checklist, :notice => 'Checklist was successfully updated.') }
+				flash[:success] = 'Your checklist template was saved.'
+				format.html { redirect_to(@checklist) }
 				format.xml  { head :ok }
 			else
 				format.html { render :action => "edit" }

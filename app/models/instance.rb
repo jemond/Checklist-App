@@ -3,7 +3,8 @@ class Instance < ActiveRecord::Base
 	
 	# determine if we need a new instance or not for a user checking off an item
 	def self.exists checklist_id
-		instance = Instance.find(:all, :select => 'id, finished_items, updated_at, emails, list', :conditions => ['checklist_id = ? and finished <> ?',checklist_id,true ], :order=>'created_at DESC', :limit=>1)
+		#instance = Instance.find(:first, :select => 'id, finished_items, updated_at, emails, list', :conditions => ['checklist_id = ? and finished <> ?',checklist_id,true ], :order=>'created_at DESC', :limit=>1)
+		instance = Instance.select('id, finished_items, updated_at, emails, list').where(:checklist_id => checklist_id, :finished => false).order('created_at DESC')
 		
 		return instance.empty? ? false : instance[0]
 	end
@@ -45,4 +46,13 @@ class Instance < ActiveRecord::Base
 	def self.finish instance
 		instance.update_attribute 'finished', true
 	end
+	
+	# get the old instances to show to the user when filling out a new one
+	def self.get_previous checklist_id
+		instance = Instance.find(:all,
+			:select => 'updated_at',
+			:conditions => ['checklist_id = ? and finished = ?',checklist_id,true ],
+			:order=>'created_at DESC'
+		)
+	end	
 end

@@ -50,7 +50,7 @@ class Checklist < ActiveRecord::Base
 	
 	# pull out parts from the list we don't need
 	def self.prepare_list checklist
-		#make an array
+		# make an array
 		checklist.list = checklist.list.lines.to_a
 		
 		# the first line is always the title
@@ -68,6 +68,7 @@ class Checklist < ActiveRecord::Base
 		return checklist
 	end
 	
+	# show start only of checklist for display when listed with other checklists
 	def self.prepare_lists checklists
 		checklists.each_with_index do |list,i|
 			checklists[i] = Checklist.prepare_list list

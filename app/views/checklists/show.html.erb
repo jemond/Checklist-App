@@ -1,4 +1,5 @@
 <% content_for(:title, @checklist.title) %>
+<%= render :partial => 'shared/flash', :locals => {:flash => flash } %>
 
 <script type="text/javascript">
 	// detect anyone checking off a list item
@@ -61,8 +62,6 @@
 </script>
 
 <div class="grid_8">
-	<div id="notice" style="display:<%= notice ? 'inherit' : 'none' %>"><p><%= notice %></p></div>
-
 	<h2 class="checklist_title">
 		<%=h yield(:title) %>
 		<span>
@@ -75,7 +74,7 @@
 	<% end %>
 	
 	<ol title="The checklsit items">
-		<% @checklist.list.each_with_index do |item, i| %>
+		<% @instance.list.each_with_index do |item, i| %>
 			<li id="<%= 'li_'+i.to_s %>">
 				<%= check_box 'item'+(i.to_s), 0 %>
 				<label for="<%= 'item'+i.to_s+'_0' %>" id="<%= 'label_'+i.to_s %>"
@@ -86,8 +85,8 @@
 	</ol>
 	
 	<div id="FinishedBlock" style="<%= @instance and @instance.finished_items and @instance.finished_items.count == @checklist.list.count ? 'display:block' : 'display:none' %>">
-		<%= link_to 'Finish this checklist', { :action=>'finish', :id=>@checklist.id }, :remote=>true, :class=>'yo' %>
-		<%= 'by emailing ' + @checklist.emails unless @checklist.emails.nil? %>
+		<%= link_to 'Finish this checklist', { :action=>'finish', :id=>@checklist.id }, :class=>'yo' %>
+		<%= ('by emailing ' + @checklist.emails) unless @checklist.emails.nil? || @checklist.emails.empty? %>
 	</div>
 	
 	<p>
@@ -98,6 +97,13 @@
 </div>
 
 <div class="grid_4">
-	<h2>Filled out by</h2>
-	...
+	<div class="leftspacer">
+		<h2>Filled out by</h2>
+		
+		<p>
+		<% @previous.each do |old_instance| %>
+			me <%= time_ago_in_words old_instance.updated_at %> ago<br />
+		<% end %>
+		</p>
+	</div>
 </div>
