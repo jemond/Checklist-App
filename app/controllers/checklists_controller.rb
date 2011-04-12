@@ -121,6 +121,9 @@ class ChecklistsController < ApplicationController
 	def update
 		@checklist = Checklist.find(params[:id])
 		
+		# trim blank lines
+		params[:checklist][:list] = Checklist.clean_up_list params[:checklist][:list]
+		
 		# we take the first line and make that the title
 		params[:checklist][:title] = Checklist.get_title_from_list params[:checklist][:list]
 		

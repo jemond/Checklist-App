@@ -77,4 +77,9 @@ class Checklist < ActiveRecord::Base
 		
 		return checklists
 	end
+	
+	# remove blank lines from the list
+	def self.clean_up_list list
+		return list.split("\n").delete_if {|line| line.blank?}.join("\n")
+	end
 end

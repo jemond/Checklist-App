@@ -4,6 +4,10 @@
 <script type="text/javascript">
 	// detect anyone checking off a list item
 	Event.observe(window, 'load', function() {
+		startUpChecklist();
+	});
+	
+	function startUpChecklist() {
 		$$('.checkoff-link').each(function(element) {
 			element.observe('ajax:success', successfulCheckOff);
 		});
@@ -28,17 +32,17 @@
 			});
 		});
 		
+		// when the finish box is clicked we replace it with the loader icon for some affordance juice
 		$$('.yo').each(function(ef) {
 			ef.observe('click',function(events) {
 				$('finishbar').toggle();
 				$('finishloader').show();
 			});
 		});
-
 		
 		// flash the finish box if a new page load on a finished checklist
 		updateFinished();
-	});
+	}
 	
 	function toggleLoader(id) {
 		return $('loader_'+id).toggle();
@@ -60,22 +64,30 @@
 			item.checked = false;
 		}
 		
-		// turn on the alt abandon box if this was the first checklist item
 		toggleAbandonBox(response);
-		
-		// make sure if this was the last item we show the finish box
+		toggleEditBox();
 		updateFinished();
 	}
-	
+	// turn on the alt abandon box if this was the first checklist item
 	function toggleAbandonBox(response) {
-		if( !$('AltAbandonBox').visible() && ( $('AbandonBox') == null || !$('AbandonBox').visible() ) ) {
+		var AltAbandonBox = $('AltAbandonBox');
+		var AbandonBox = $('AbandonBox');
+		if( !AltAbandonBox.visible() && ( AbandonBox == null || !AbandonBox.visible() ) ) {
 			$$('#AltAbandonBox span.time_ago_in_words').each(function(e) {
 				e.innerHTML = make_date_humane(response.updated_at);
 			});
-			$('AltAbandonBox').toggle().highlight();		
+			AltAbandonBox.toggle().highlight();		
 		}
+	}	
+	
+	// hide the edit box once they get into edit mode
+	function toggleEditBox() {
+		var EditControl = $('EditControl');
+		if(EditControl.visible())
+			EditControl.hide();
 	}
 	
+	// make sure if this was the last item we show the finish box
 	function updateFinished() {
 		// if this is the last item, then we have show the finish control
 		if(isChecklistFinished())
@@ -101,6 +113,9 @@
 <div class="grid_8">
 	<h2 class="checklist_title">
 		<%=h yield(:title) %>
+		<% if !@instance %>
+			<span id="EditControl"><%= link_to 'Edit', edit_checklist_path(@checklist), :title=>'There is one template per list, but many instances.' %></span>
+		<% end %>
 	</h2>
 	
 	<% if @instance %>
