@@ -6,37 +6,52 @@
 	Event.observe(window, 'load', function() {
 		$$('.checkoff-link').each(function(element) {
 			element.observe('ajax:success', successfulCheckOff);
-		});		
+		});
+		
+		$$('input').each(function(el) {
+			el.observe('click', function(event) {			
+				// Get the task ID
+				var elId = el.id.split("_")[1];
+				var path = '<%= url_for(:action=>'checkoff',:controller=>'checklists', :id=>@checklist.id) %>?item='+elId;
+				
+				new Ajax.Request(path, {
+					onCreate: function() {
+					},
+					onSuccess: function(response) {						
+						successfulCheckOff(response, elId);
+					},
+					onComplete: function() {
+						
+					}
+				});
+			});
+		});
+
 		
 		// flash the finish box if a new page load on a finished checklist
 		updateFinished();
 	});
 	
 	// when they tick it off, check it off
-	function successfulCheckOff(e) {
+	function successfulCheckOff(response, id) {
 		// we get the instance back, and sniff the finished_items
-		var response = e.memo.responseJSON.instance;
-		var element = e.element();
-		var label = $(getLabelIdFromLinkId(element.id));
+		
+		var response = response.responseJSON.instance;
+		var label = $('label_'+id);
+		var item = $('item_'+id);
+		
+		console.log(response);
 		
 		// if our item id in question is in the returned finished_items, strikeout, otherwise, strikein
-		if(response.finished_items.indexOf(getItemNumberFromLinkId(element.id)) >= 0) {
+		if(response.finished_items.indexOf(id) >= 0) {
 			label.addClassName('strikeout');
+			item.checked = true;
 		} else {
 			label.removeClassName('strikeout');
+			item.checked = false;
 		}
 		
 		updateFinished();
-	}
-	
-	// translate the ID from the link that calls the ajax to the id of the li in question
-	function getLabelIdFromLinkId(linkid) {		
-		return linkid.replace('link_','label_');
-	}
-	
-	// get the 2 from link_2
-	function getItemNumberFromLinkId(linkid) {
-		return linkid.replace('link_','');
 	}
 	
 	function updateFinished() {
@@ -76,10 +91,9 @@
 	<ol title="The checklsit items">
 		<% @instance.list.each_with_index do |item, i| %>
 			<li id="<%= 'li_'+i.to_s %>">
-				<%= check_box 'item'+(i.to_s), 0 %>
-				<label for="<%= 'item'+i.to_s+'_0' %>" id="<%= 'label_'+i.to_s %>"
+				<%= check_box_tag 'item_'+(i.to_s), 1, (true if @instance and @instance.finished_items and @instance.finished_items.include?(i.to_s)) %>
+				<label for="<%= 'item'+i.to_s %>" id="<%= 'label_'+i.to_s %>"
 						class="itemlabel <%= 'strikeout' if @instance and @instance.finished_items and @instance.finished_items.include?(i.to_s) %>"><%= item %></label>
-				<%= link_to "Checkoff", { :action=>'checkoff', :id=>@checklist.id, :item=>i }, :remote=>true, :class => 'checkoff-link', :id=>'link_'+i.to_s %>
 			</li>
 		<% end %>
 	</ol>
