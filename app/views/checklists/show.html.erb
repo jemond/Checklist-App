@@ -46,8 +46,7 @@
 	
 	// when they tick it off, check it off
 	function successfulCheckOff(response, id) {
-		// we get the instance back, and sniff the finished_items
-		
+		// we get the instance back, and sniff the finished_items		
 		var response = response.responseJSON.instance;
 		var label = $('label_'+id);
 		var item = $('item_'+id);
@@ -61,7 +60,20 @@
 			item.checked = false;
 		}
 		
+		// turn on the alt abandon box if this was the first checklist item
+		toggleAbandonBox(response);
+		
+		// make sure if this was the last item we show the finish box
 		updateFinished();
+	}
+	
+	function toggleAbandonBox(response) {
+		if( !$('AltAbandonBox').visible() && ( $('AbandonBox') == null || !$('AbandonBox').visible() ) ) {
+			$$('#AltAbandonBox span.time_ago_in_words').each(function(e) {
+				e.innerHTML = make_date_humane(response.updated_at);
+			});
+			$('AltAbandonBox').toggle().highlight();		
+		}
 	}
 	
 	function updateFinished() {
@@ -89,17 +101,35 @@
 <div class="grid_8">
 	<h2 class="checklist_title">
 		<%=h yield(:title) %>
-		<span>
-			<%= link_to 'Edit template', edit_checklist_path(@checklist), :title=>'Change the checklist' %>
-		</span>
 	</h2>
 	
 	<% if @instance %>
-		<p>Last updated by you <%= time_ago_in_words @instance.updated_at %> ago:</p>
+		<div id="AbandonBox">
+			<p>
+				Last updated by you <%= time_ago_in_words @instance.updated_at %> ago
+				(<%= link_to 'abandon', { :action=>'abandon', :id=>@checklist.id}, :confirm=>'Are you sure?', :title=>'Delete what you have filled out and start over with the latest template' %>):
+			</p>
+		</div>
+	<% end %>
+	<div id="AltAbandonBox" style="display:none">
+		<p>
+			Last updated by you <span class="time_ago_in_words"></span> ago
+			(<%= link_to 'abandon', { :action=>'abandon', :id=>@checklist.id}, :confirm=>'Are you sure?', :title=>'Delete what you have filled out and start over with the latest template' %>):
+		</p>
+	</div>
+	
+	<% if @instance and @checklist.list != @instance.list %>
+		<div id="Flash" class="notice persist">
+			<p>
+				The checklist template has changed since you started checking it off. You will have to
+				<%= link_to 'abandon', { :action=>'abandon', :id=>@checklist.id }, :title=>'Delete what you have filled out and start over with the latest template' %>
+				 or finish this instance to use the latest version.
+			</p>
+		</div>
 	<% end %>
 	
 	<ol title="The checklsit items">
-		<% @instance.list.each_with_index do |item, i| %>
+		<% (@instance || @checklist).list.each_with_index do |item, i| %>
 			<li id="li_<%= i.to_s %>">
 				<%= check_box_tag 'item_'+(i.to_s), 1, (true if @instance and @instance.finished_items and @instance.finished_items.include?(i.to_s)) %>
 				<label for="item_<%= i.to_s %>" id="<%= 'label_'+i.to_s %>"
@@ -112,25 +142,20 @@
 	<div id="FinishedBlock" style="<%= @instance and @instance.finished_items and @instance.finished_items.count == @checklist.list.count ? 'display:block' : 'display:none' %>">
 		<span id="finishloader" style="display:none;"><%= image_tag 'loader-dots.gif', :title=>'loading...', :alt=>'loading...' %></span>
 		<span id="finishbar">
-			<%= link_to 'Finish this checklist', { :action=>'finish', :id=>@checklist.id }, :class=>'yo' %>		
+			<%= link_to 'Finish this checklist', { :action=>'finish', :id=>@checklist.id }, :class=>'yo' %>
 			<%= ('by emailing ' + @checklist.emails) unless @checklist.emails.nil? || @checklist.emails.empty? %>
 		</span>
 	</div>
-	
-	<p>
-		<%= link_to 'Back', checklists_path %> |
-		<%= link_to 'Delete', @checklist, :confirm => 'Are you sure?', :method => :delete %>
-	</p>
 
 </div>
 
 <div class="grid_4">
 	<div class="leftspacer">
-		<h2>Filled out by</h2>
+		<h2 title="We store instance history for the last two weeks">Last two weeks:</h2>
 		
 		<p>
 		<% @previous.each do |old_instance| %>
-			me <%= time_ago_in_words old_instance.updated_at %> ago<br />
+			jemond <%= time_ago_in_words old_instance.updated_at %> ago<br />
 		<% end %>
 		</p>
 	</div>

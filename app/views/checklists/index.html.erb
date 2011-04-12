@@ -5,9 +5,15 @@
 	
 	<% @checklists.each do |checklist| %>
 		<h2 class="checklist_title">
-			<%= link_to checklist.title, checklist, :title=>'Fill out the checklist' %>
-			<span>template updated <%= time_ago_in_words checklist.updated_at %> ago</span>
+			<%= link_to checklist.title, checklist, :title=>'See the whole checklist' %>
+			<span>
+				<%= link_to 'Edit', edit_checklist_path(checklist), :title=>'There is one template per list, but many instances.' %>
+			</span>
 		</h2>
+		<span class="subnote">
+			template updated <%= time_ago_in_words checklist.updated_at %> ago
+			<%= link_to 'Delete', checklist, :confirm => 'Are you sure?', :method => :delete, :title=> 'There is no undo' %>
+		</span>
 		
 		<ol>
 		<% checklist.list.each do |item| %>

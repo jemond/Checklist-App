@@ -4,6 +4,7 @@ Cla::Application.routes.draw do
 	# handling checklists
 	match 'checklists/:id/checkoff' => 'checklists#checkoff'
 	match 'checklists/:id/finish' => 'checklists#finish'
+	match 'checklists/:id/abandon' => 'checklists#abandon'
 	
 	root :to => "pages#index"
 	match 'about' => 'pages#about'

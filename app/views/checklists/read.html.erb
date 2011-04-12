@@ -1,0 +1,38 @@
+<% content_for(:title, @checklist.title) %>
+<%= render :partial => 'shared/flash', :locals => {:flash => flash } %>
+
+<div class="grid_8">
+	<h2 class="checklist_title">
+		<%=h yield(:title) %>
+	</h2>
+	
+	<div id="Flash" class="notice persist">
+		<p>
+			<%= link_to 'Fill out the checklist', @checklist, :title=>'Start filling the checklist out.' %>
+			to start ticking items off.
+		</p>
+	</div>
+	
+	<ol title="The checklsit items">
+		<% @checklist.list.each_with_index do |item, i| %>
+			<li id="li_<%= i.to_s %>">
+				<label for="item_<%= i.to_s %>" id="<%= 'label_'+i.to_s %>"	class="itemlabel "><%= item %></label>
+			</li>
+		<% end %>
+	</ol>
+	
+	<p><%= link_to 'Edit template', edit_checklist_path(@checklist), :title=>'There is one template per list, but many instances.' %></p>
+
+</div>
+
+<div class="grid_4">
+	<div class="leftspacer">
+		<h2>Filled out by</h2>
+		
+		<p>
+		<% @previous.each do |old_instance| %>
+			me <%= time_ago_in_words old_instance.updated_at %> ago<br />
+		<% end %>
+		</p>
+	</div>
+</div>

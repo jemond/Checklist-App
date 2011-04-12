@@ -55,13 +55,31 @@ class ChecklistsController < ApplicationController
 	# GET /checklists/1
 	# GET /checklists/1.xml
 	def show
-		@checklist = Checklist.prepare_list Checklist.find(params[:id])
-		@instance = Checklist.prepare_list Instance.get_or_create params[:id]
+		# load up the checklist in question, which we have
+		@checklist = Checklist.prepare_list Checklist.find params[:id]
+		
+		# pull any previous instances to show to the user in a history
 		@previous = Instance.get_previous params[:id]
+		
+		# get an instance if we have one
+		@instance = Instance.exists params[:id]
+		@instance = @instance ? (Checklist.prepare_list @instance) : @instance;
 		
 		respond_to do |format|
 			format.html # show.html.erb
 			format.xml  { render :xml => @checklist }
+		end
+	end
+	
+	# if filling out an instance you can just give up
+	def abandon
+		@checklist = Checklist.find params[:id]
+		@instance = Instance.get_or_create params[:id]
+		@instance.destroy
+		
+		respond_to do |format|
+			format.html { redirect_to(@checklist) }
+			format.xml  { head :ok }
 		end
 	end
 
