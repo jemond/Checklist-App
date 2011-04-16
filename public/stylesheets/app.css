@@ -60,20 +60,34 @@ A:hover {
 /* Struts */
 /* Struts */
 
-.header {
+#header {
 	background-color: #3F4038;
 }
 
-.header H1 {
+#header H1 {
 	color: white;
 }
 
-.header H1 A {
+#header H1 A {
 	text-decoration: none;
 	color: #62BECB;
 }
 
-.header H1 A:hover {
+#header H1 A:hover {
+	background: none;
+}
+
+#navigation {
+	margin-top: 6px;
+	color: white;
+}
+
+#navigation A {
+	color: white;
+	text-decoration: none;
+}
+
+#navigation A:hover {
 	background: none;
 }
 

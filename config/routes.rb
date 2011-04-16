@@ -1,14 +1,24 @@
 Cla::Application.routes.draw do
+	root :to => "pages#index"
+
 	resources :checklists
 	
 	# handling checklists
 	match 'checklists/:id/checkoff' => 'checklists#checkoff'
 	match 'checklists/:id/finish' => 'checklists#finish'
 	match 'checklists/:id/abandon' => 'checklists#abandon'
-	
-	root :to => "pages#index"
 	match 'about' => 'pages#about'
 	match 'samples' => 'pages#samples'
+	
+	# hack up the devise route, which is fucking painful to do
+	# http://stackoverflow.com/questions/5180295/how-to-change-the-login-and-signup-urls-in-devise-plugin-rails3
+	devise_for :users,
+		:controllers => { :sessions => 'devise/sessions'},
+		:skip => [:sessions] do
+			get '/login' => 'devise/sessions#new', :as => :new_user_session
+			post '/login' => 'devise/sessions#create', :as => :user_session
+			get '/logout' => 'devise/sessions#destroy', :as => :destroy_user_session
+	end
 
 	# The priority is based upon order of creation:
 	# first created -> highest priority.

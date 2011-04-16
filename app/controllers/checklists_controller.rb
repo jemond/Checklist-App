@@ -1,5 +1,8 @@
 require 'yaml'
 class ChecklistsController < ApplicationController
+	#login required
+	before_filter :authenticate_user!
+		
 	# GET /checklists
 	# GET /checklists.xml
 	def index

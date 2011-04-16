@@ -49,10 +49,6 @@ class Instance < ActiveRecord::Base
 	
 	# get the old instances to show to the user when filling out a new one
 	def self.get_previous checklist_id
-		instance = Instance.find(:all,
-			:select => 'updated_at',
-			:conditions => ['checklist_id = ? and finished = ?',checklist_id,true ],
-			:order=>'created_at DESC'
-		)
+		return Instance.select('updated_at').where(:checklist_id=>checklist_id, :finished=> true).order('created_at DESC')
 	end	
 end
