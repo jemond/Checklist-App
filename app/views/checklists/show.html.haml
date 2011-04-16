@@ -1,0 +1,61 @@
+- content_for(:title, @checklist.title)
+= render :partial => 'shared/flash', :locals => {:flash => flash }
+
+:javascript
+	function getCheckOffPath(id) {
+		return '#{url_for(:action=>'checkoff',:controller=>'checklists', :id=>@checklist.id)}?item='+id;
+	}
+
+.grid_8
+	%h2.checklist_title
+		= h yield(:title)
+		- if !@instance
+			%span#EditControl
+				= link_to 'Edit', edit_checklist_path(@checklist), :title=>'There is one template per list, but many instances.'
+	
+	- if @instance
+		#AbandonBox
+			%p
+				Last updated by you #{time_ago_in_words @instance.updated_at} ago
+				(#{ link_to 'abandon', { :action=>'abandon', :id=>@checklist.id}, :confirm=>'Are you sure?', :title=>'Delete what you have filled out and start over with the latest template'}):
+
+	#AltAbandonBox(style="display:none")
+		%p
+			Last updated by you
+			%span.time_ago_in_words
+			ago
+			(#{ link_to 'abandon', { :action=>'abandon', :id=>@checklist.id}, :confirm=>'Are you sure?', :title=>'Delete what you have filled out and start over with the latest template' }):
+	
+	- if @instance and @checklist.list != @instance.list
+		#Flash.notice.persist
+			%p
+				The checklist template has changed since you started checking it off. You will have to
+				= link_to 'abandon', { :action=>'abandon', :id=>@checklist.id }, :title=>'Delete what you have filled out and start over with the latest template'
+				or finish this instance to use the latest version.
+	
+	%ol{:title=>"The checklsit items",:id=>"the_checklist"}
+		- (@instance || @checklist).list.each_with_index do |item, i|
+			%li(id="li_#{i.to_s}")
+				= check_box_tag 'item_'+(i.to_s), 1, (true if @instance and @instance.finished_items and @instance.finished_items.include?(i.to_s))
+				%label{:for=>"item_#{i.to_s}",:id=>"#{'label_'+i.to_s}",:class=>"itemlabel #{'strikeout' if @instance and @instance.finished_items and @instance.finished_items.include?(i.to_s)}"}
+					= item 
+				%span{:id=>"loader_#{i.to_s}",:style=>"display:none"}
+					= image_tag 'loader-dots.gif'
+	
+	#FinishedBlock{:style=>"#{(@instance and @instance.finished_items and @instance.finished_items.count == @checklist.list.count) ? 'display:block' : 'display:none'}"}
+		%span#finishloader(style="display:none;")
+			= image_tag 'loader-dots.gif', :title=>'loading...', :alt=>'loading...'
+			
+		%span#finishbar
+			= link_to 'Finish this checklist', { :action=>'finish', :id=>@checklist.id }, :class=>'yo'
+			= ('by emailing ' + @checklist.emails) unless @checklist.emails.nil? || @checklist.emails.empty?
+
+.grid_4
+	.leftspacer
+		%h2(title="We store instance history for the last two weeks")
+			Last two weeks:
+		
+		%p
+			- @previous.each do |old_instance|
+				jemond #{time_ago_in_words old_instance.updated_at} ago
+				%br

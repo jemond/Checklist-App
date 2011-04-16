@@ -1,0 +1,21 @@
+- content_for(:title, 'Edit your checklist')
+= render :partial => 'shared/flash', :locals => {:flash => flash }
+
+.grid_7
+	%br
+
+	- form_for @checklist do
+	
+		.textarea
+			= text_area_tag('checklist[list]',@checklist.list,:id=>'ChecklistBody',:rows=>6,:cols=>25,:class=>'checklistbox')
+			%br
+		
+		#SubmitArea
+			#SubmitAreaControls
+				= submit_tag 'Save', :class=>'button'
+				= link_to 'Cancel', @checklist, :title=>'Return to checklist listing page'
+			%br{:clear=>'all'}
+
+.grid_5
+	%br
+	#PreviewBox.leftspacer

@@ -2,13 +2,16 @@
  Startup routines when the dom is loaded
 */
 $(document).ready(function() {
+	// always booted up on every page
 	monitorFlashNotices();
 	
 	// if this is the editor page, load the editor helper
 	if($('#ChecklistBody'))
 		startUpChecklistEditor();
 		
-	startUpChecklist();
+	// if this is te checklist show page page, fire it up
+	if($('#the_checklist'))
+		startUpChecklist();
 });
 
 /*
@@ -115,21 +118,25 @@ function startUpChecklistEditor() {
 */
 
 function startUpChecklist() {
-	$('.checkoff-link').bind('ajax:success', successfulCheckOff);
-	
-	$('input').bind('click', function(event) {
+	$('input').bind('click', function() {
 		// Get the task ID
-		var task_id = event.currentTarget.id.split("_")[1];
-		var path = getCheckOffPath(task_id);
+		task_id = $(this).attr('id').split("_")[1];
 		
+		// this more efficient then a getJSON request because binding the ajaxstart/stop
+		// to INPUT would call it for every INPUT, when I just want it for one
 		$.ajax({
-			url: path,
-			dataType: 'json',
-			context: document.body,
-			start: function() { toggleLoader(task_id) },
-			stop: function() { toggleLoader(task_id) },
-			success: function(data) { successfulCheckOff(data, task_id) }
-		})
+			url: getCheckOffPath(task_id),
+			datatype: 'json',
+			success: function(data) {
+				successfulCheckOff(data, task_id)
+			},
+			beforeSend: function() {
+				toggleLoader(task_id);
+			},
+			complete: function() {
+				toggleLoader(task_id);
+			}
+		});
 	});
 	
 	// when the finish box is clicked we replace it with the loader icon for some affordance juice
@@ -142,14 +149,16 @@ function startUpChecklist() {
 	updateFinished();
 }
 
+// show or hide the loader to show the checkmark is saving
 function toggleLoader(id) {
-	return $('loader_'+id).toggle();
+	loader = $('#loader_'+id);
+	return loader.is(':visible') ? loader.hide() : loader.show();
 }
 
 // when they tick it off, check it off
-function successfulCheckOff(response, id) {
+function successfulCheckOff(raw_response, id) {
 	// we get the instance back, and sniff the finished_items		
-	var response = response.instance;
+	var response = raw_response.instance;
 	var label = $('#label_'+id);
 	var item = $('#item_'+id);
 	
@@ -166,7 +175,9 @@ function successfulCheckOff(response, id) {
 	toggleEditBox();
 	updateFinished();
 }
-// turn on the alt abandon box if this was the first checklist item
+
+// turn on the alt abandon box if this was the first checklist item checked,
+// as we won't have this box if /show is loaded without an instance started
 function toggleAbandonBox(response) {
 	var AltAbandonBox = $('#AltAbandonBox');
 	var AbandonBox = $('#AbandonBox');
@@ -180,6 +191,7 @@ function toggleAbandonBox(response) {
 }	
 
 // hide the edit box once they get into edit mode
+// this improves distinctions between filling it out and just looking at it
 function toggleEditBox() {
 	var EditControl = $('#EditControl');
 	if(EditControl.is(':visible'))

@@ -1,0 +1,10 @@
+- content_for(:title, 'Create new checklist')
+.grid_12
+	%h1
+		= yield(:title)
+	
+	= render 'form'
+
+	= link_to 'Back', checklists_path
+
+
