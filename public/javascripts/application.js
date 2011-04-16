@@ -1,13 +1,18 @@
-Event.observe(window, 'load', function() {	
+$(document).ready(function() {
+	// fade them as needed
 	monitorFlashNotices();
+	
+	// if this is the editor page, load the editor helper
+	if($('#ChecklistBody'))
+		startUpChecklistEditor();
 });
 
 // hide flash notices once they appear
 // you can append the class name "persist" to make them stick
 function monitorFlashNotices() {
-	$$('#Flash').each(function(element) {
-		if(!element.hasClassName('persist'))
-			element.fade({ duration: 3.0, from: 1, to: 0 });
+	$('#Flash').each(function() {
+		if(!$(this).hasClass('persist'))
+			$(this).effect('fade', {}, 3000);
 	});
 }
 
@@ -71,10 +76,7 @@ function make_date_humane(date_str){
 	return date_str;
 };
 
-/*
-// Place your application-specific JavaScript functions and classes here
-// This file is automatically included by javascript_include_tag :defaults
-$(document).ready(function() {
+function startUpChecklistEditor() {
 	$('#SubmitAreaControls input').attr('disabled', '');
 	
 	$(window).bind('onunload', function() { // catch if changed
@@ -153,7 +155,51 @@ $(document).ready(function() {
 			
 		$('#PreviewBox').empty().html('<h2>'+title+'</h2><ol>'+items+'</ol>'+emails);
 	}).trigger('keyup');
-});
+}
 
+// http://stackoverflow.com/questions/46155/validate-email-address-in-javascript
+function validateEmail(email) {
+	var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/ 
+	return email.match(re);
+}
+
+/*
 // to do - auto number when press enter, but can still edit number
+*/
+
+// http://blog.mythin.net/projects/jquery.php
+/*
+$.fn.pause = function(milli,type) {
+	milli = milli || 1000;
+	type = type || "fx";
+	return this.queue(type,function(){
+		var self = this;
+		setTimeout(function(){
+			$.dequeue(self);
+		},milli);
+	});
+};
+
+// http://blog.mythin.net/projects/jquery.php
+$.fn.clearQueue = $.fn.unpause = function(type) {
+	return this.each(function(){
+		type = type || "fx";
+		if(this.queue && this.queue[type]) {
+			this.queue[type].length = 0;
+		}
+	});
+};
+
+// HELPER METHODS
+
+function showAction(action) {
+	$('#ActionPane').show();
+	
+	if($('#ActionPane > .'+action))
+		$('#ActionPane > .'+action).show();
+}
+
+String.prototype.trim=function(){a=this.replace(/^\s+/,'');return a.replace(/\s+$/,'');};
+
+// to do: pr (just append to body end), empty, isdefined,len for string,array
 */
