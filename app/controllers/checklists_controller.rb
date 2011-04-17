@@ -31,7 +31,7 @@ class ChecklistsController < ApplicationController
 			instance.finished_items = Instance.update_finished_items instance.id, instance.finished_items, params[:item]			
 			
 			respond_to do |format|
-				format.json { render :json => instance }
+				format.json { render :json => instance, :template => 'blank' }
 			end
 		end
 	end

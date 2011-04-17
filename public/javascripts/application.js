@@ -6,12 +6,13 @@ $(document).ready(function() {
 	monitorFlashNotices();
 	
 	// if this is the editor page, load the editor helper
-	if($('#ChecklistBody'))
+	if($('#ChecklistBody').length)
 		startUpChecklistEditor();
 		
 	// if this is te checklist show page page, fire it up
-	if($('#the_checklist'))
+	if($('#the_checklist').length) {
 		startUpChecklist();
+	}
 });
 
 /*
