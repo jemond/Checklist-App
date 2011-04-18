@@ -1,66 +1,92 @@
-@charset "utf-8";
+/*
+Syntax error: Invalid CSS after "...Palatino, serif": expected expression (e.g. 1px, bold), was ";"
+        on line 7 of F:/xampp/htdocs/cla/public/stylesheets/sass/public.sass
 
-BODY {
-	font-family:Georgia, "Times New Roman", Times, serif;
-	background-color: #FCFCFC
-}
+2: 	font-family:Georgia, "Times New Roman", Times, serif;
+3: 	background-color: #FCFCFC
+4: }
+5: 
+6: H1, H2, H3, H4 {
+7: 	font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+8: 	margin: 0;
+9: 	padding: 0;
+10: 	margin-bottom: 10px;
+11: }
+12: 
 
-H1, H2, H3, H4 {
-	font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
-	margin: 0;
-	padding: 0;
-	margin-bottom: 10px;
-}
-
-H2 {
-	color: #0E4E5A;
-}
-
-.header {
-	background-image: url(../images/header_background.png);
-	height: 41px;
-}
-
-.header H1 {
-	margin: 0;
-	padding: 0;
-	font-size: 120%;
-	margin-top: 4px;
-}
-
-.header H1, .header H1 A {
-	color: white;
-}
-
-.header H1 A {
-	text-decoration: none;
-}
-
-.navigation A {
-	color: white;
-	text-decoration: none;
-	padding-top: 10px;
-	padding-bottom: 12px;
-	padding-right: 15px;
-	padding-left: 8px;
-	margin-right: 5px;
-	border-right: 1px solid #000;
-	display: inline-block;
-}
-
-.navigation A:hover {
-	background-color: #62BECB;	
-}
-
-.footer {
-	font-size: 75%;
-}
-
-/* this make a nice little drop shadow box */
-.textblock {
-	background: none repeat scroll 0 0 white;
-    border-radius: 6px 6px 6px 6px;
-    box-shadow: 2px 1px 6px #CCCCCC;
-    margin: 20px auto;
-    padding: 10px 20px;
-}
+Backtrace:
+F:/xampp/htdocs/cla/public/stylesheets/sass/public.sass:7
+C:/Ruby192/lib/ruby/gems/1.9.1/gems/haml-3.0.25/lib/sass/scss/parser.rb:838:in `expected'
+C:/Ruby192/lib/ruby/gems/1.9.1/gems/haml-3.0.25/lib/sass/script/lexer.rb:193:in `expected!'
+C:/Ruby192/lib/ruby/gems/1.9.1/gems/haml-3.0.25/lib/sass/script/parser.rb:392:in `assert_done'
+C:/Ruby192/lib/ruby/gems/1.9.1/gems/haml-3.0.25/lib/sass/script/parser.rb:50:in `parse'
+C:/Ruby192/lib/ruby/gems/1.9.1/gems/haml-3.0.25/lib/sass/script/parser.rb:120:in `parse'
+C:/Ruby192/lib/ruby/gems/1.9.1/gems/haml-3.0.25/lib/sass/script.rb:32:in `parse'
+C:/Ruby192/lib/ruby/gems/1.9.1/gems/haml-3.0.25/lib/sass/engine.rb:672:in `parse_script'
+C:/Ruby192/lib/ruby/gems/1.9.1/gems/haml-3.0.25/lib/sass/engine.rb:470:in `parse_property'
+C:/Ruby192/lib/ruby/gems/1.9.1/gems/haml-3.0.25/lib/sass/engine.rb:459:in `parse_property_or_rule'
+C:/Ruby192/lib/ruby/gems/1.9.1/gems/haml-3.0.25/lib/sass/engine.rb:440:in `parse_line'
+C:/Ruby192/lib/ruby/gems/1.9.1/gems/haml-3.0.25/lib/sass/engine.rb:328:in `build_tree'
+C:/Ruby192/lib/ruby/gems/1.9.1/gems/haml-3.0.25/lib/sass/engine.rb:347:in `block in append_children'
+C:/Ruby192/lib/ruby/gems/1.9.1/gems/haml-3.0.25/lib/sass/engine.rb:346:in `each'
+C:/Ruby192/lib/ruby/gems/1.9.1/gems/haml-3.0.25/lib/sass/engine.rb:346:in `append_children'
+C:/Ruby192/lib/ruby/gems/1.9.1/gems/haml-3.0.25/lib/sass/engine.rb:337:in `block in build_tree'
+C:/Ruby192/lib/ruby/gems/1.9.1/gems/haml-3.0.25/lib/sass/engine.rb:330:in `each'
+C:/Ruby192/lib/ruby/gems/1.9.1/gems/haml-3.0.25/lib/sass/engine.rb:330:in `build_tree'
+C:/Ruby192/lib/ruby/gems/1.9.1/gems/haml-3.0.25/lib/sass/engine.rb:347:in `block in append_children'
+C:/Ruby192/lib/ruby/gems/1.9.1/gems/haml-3.0.25/lib/sass/engine.rb:346:in `each'
+C:/Ruby192/lib/ruby/gems/1.9.1/gems/haml-3.0.25/lib/sass/engine.rb:346:in `append_children'
+C:/Ruby192/lib/ruby/gems/1.9.1/gems/haml-3.0.25/lib/sass/engine.rb:216:in `_to_tree'
+C:/Ruby192/lib/ruby/gems/1.9.1/gems/haml-3.0.25/lib/sass/engine.rb:179:in `block in to_tree'
+C:/Ruby192/lib/ruby/gems/1.9.1/gems/haml-3.0.25/lib/haml/util.rb:294:in `silence_haml_warnings'
+C:/Ruby192/lib/ruby/gems/1.9.1/gems/haml-3.0.25/lib/sass/engine.rb:179:in `to_tree'
+C:/Ruby192/lib/ruby/gems/1.9.1/gems/haml-3.0.25/lib/sass/files.rb:44:in `tree_for'
+C:/Ruby192/lib/ruby/gems/1.9.1/gems/haml-3.0.25/lib/sass/plugin.rb:223:in `update_stylesheet'
+C:/Ruby192/lib/ruby/gems/1.9.1/gems/haml-3.0.25/lib/sass/plugin.rb:88:in `block (2 levels) in update_stylesheets'
+C:/Ruby192/lib/ruby/gems/1.9.1/gems/haml-3.0.25/lib/sass/plugin.rb:81:in `each'
+C:/Ruby192/lib/ruby/gems/1.9.1/gems/haml-3.0.25/lib/sass/plugin.rb:81:in `block in update_stylesheets'
+C:/Ruby192/lib/ruby/gems/1.9.1/gems/haml-3.0.25/lib/sass/plugin.rb:79:in `each'
+C:/Ruby192/lib/ruby/gems/1.9.1/gems/haml-3.0.25/lib/sass/plugin.rb:79:in `update_stylesheets'
+C:/Ruby192/lib/ruby/gems/1.9.1/gems/haml-3.0.25/lib/sass/plugin.rb:50:in `check_for_updates'
+C:/Ruby192/lib/ruby/gems/1.9.1/gems/haml-3.0.25/lib/sass/plugin/rack.rb:40:in `call'
+C:/Ruby192/lib/ruby/gems/1.9.1/gems/warden-1.0.3/lib/warden/manager.rb:35:in `block in call'
+C:/Ruby192/lib/ruby/gems/1.9.1/gems/warden-1.0.3/lib/warden/manager.rb:34:in `catch'
+C:/Ruby192/lib/ruby/gems/1.9.1/gems/warden-1.0.3/lib/warden/manager.rb:34:in `call'
+C:/Ruby192/lib/ruby/gems/1.9.1/gems/actionpack-3.0.5/lib/action_dispatch/middleware/best_standards_support.rb:17:in `call'
+C:/Ruby192/lib/ruby/gems/1.9.1/gems/actionpack-3.0.5/lib/action_dispatch/middleware/head.rb:14:in `call'
+C:/Ruby192/lib/ruby/gems/1.9.1/gems/rack-1.2.2/lib/rack/methodoverride.rb:24:in `call'
+C:/Ruby192/lib/ruby/gems/1.9.1/gems/actionpack-3.0.5/lib/action_dispatch/middleware/params_parser.rb:21:in `call'
+C:/Ruby192/lib/ruby/gems/1.9.1/gems/actionpack-3.0.5/lib/action_dispatch/middleware/flash.rb:182:in `call'
+C:/Ruby192/lib/ruby/gems/1.9.1/gems/actionpack-3.0.5/lib/action_dispatch/middleware/session/abstract_store.rb:149:in `call'
+C:/Ruby192/lib/ruby/gems/1.9.1/gems/actionpack-3.0.5/lib/action_dispatch/middleware/cookies.rb:302:in `call'
+C:/Ruby192/lib/ruby/gems/1.9.1/gems/activerecord-3.0.5/lib/active_record/query_cache.rb:32:in `block in call'
+C:/Ruby192/lib/ruby/gems/1.9.1/gems/activerecord-3.0.5/lib/active_record/connection_adapters/abstract/query_cache.rb:28:in `cache'
+C:/Ruby192/lib/ruby/gems/1.9.1/gems/activerecord-3.0.5/lib/active_record/query_cache.rb:12:in `cache'
+C:/Ruby192/lib/ruby/gems/1.9.1/gems/activerecord-3.0.5/lib/active_record/query_cache.rb:31:in `call'
+C:/Ruby192/lib/ruby/gems/1.9.1/gems/activerecord-3.0.5/lib/active_record/connection_adapters/abstract/connection_pool.rb:354:in `call'
+C:/Ruby192/lib/ruby/gems/1.9.1/gems/actionpack-3.0.5/lib/action_dispatch/middleware/callbacks.rb:46:in `block in call'
+C:/Ruby192/lib/ruby/gems/1.9.1/gems/activesupport-3.0.5/lib/active_support/callbacks.rb:415:in `_run_call_callbacks'
+C:/Ruby192/lib/ruby/gems/1.9.1/gems/actionpack-3.0.5/lib/action_dispatch/middleware/callbacks.rb:44:in `call'
+C:/Ruby192/lib/ruby/gems/1.9.1/gems/rack-1.2.2/lib/rack/sendfile.rb:107:in `call'
+C:/Ruby192/lib/ruby/gems/1.9.1/gems/actionpack-3.0.5/lib/action_dispatch/middleware/remote_ip.rb:48:in `call'
+C:/Ruby192/lib/ruby/gems/1.9.1/gems/actionpack-3.0.5/lib/action_dispatch/middleware/show_exceptions.rb:47:in `call'
+C:/Ruby192/lib/ruby/gems/1.9.1/gems/railties-3.0.5/lib/rails/rack/logger.rb:13:in `call'
+C:/Ruby192/lib/ruby/gems/1.9.1/gems/rack-1.2.2/lib/rack/runtime.rb:17:in `call'
+C:/Ruby192/lib/ruby/gems/1.9.1/gems/activesupport-3.0.5/lib/active_support/cache/strategy/local_cache.rb:72:in `call'
+C:/Ruby192/lib/ruby/gems/1.9.1/gems/rack-1.2.2/lib/rack/lock.rb:11:in `block in call'
+<internal:prelude>:10:in `synchronize'
+C:/Ruby192/lib/ruby/gems/1.9.1/gems/rack-1.2.2/lib/rack/lock.rb:11:in `call'
+C:/Ruby192/lib/ruby/gems/1.9.1/gems/actionpack-3.0.5/lib/action_dispatch/middleware/static.rb:30:in `call'
+C:/Ruby192/lib/ruby/gems/1.9.1/gems/railties-3.0.5/lib/rails/application.rb:168:in `call'
+C:/Ruby192/lib/ruby/gems/1.9.1/gems/railties-3.0.5/lib/rails/application.rb:77:in `method_missing'
+C:/Ruby192/lib/ruby/gems/1.9.1/gems/railties-3.0.5/lib/rails/rack/log_tailer.rb:14:in `call'
+C:/Ruby192/lib/ruby/gems/1.9.1/gems/rack-1.2.2/lib/rack/content_length.rb:13:in `call'
+C:/Ruby192/lib/ruby/gems/1.9.1/gems/rack-1.2.2/lib/rack/handler/webrick.rb:52:in `service'
+C:/Ruby192/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+C:/Ruby192/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+C:/Ruby192/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+*/
+body:before {
+  white-space: pre;
+  font-family: monospace;
+  content: "Syntax error: Invalid CSS after \"...Palatino, serif\": expected expression (e.g. 1px, bold), was \";\"\A         on line 7 of F:/xampp/htdocs/cla/public/stylesheets/sass/public.sass\A \A 2: 	font-family:Georgia, \"Times New Roman\", Times, serif;\A 3: 	background-color: #FCFCFC\A 4: }\A 5: \A 6: H1, H2, H3, H4 {\A 7: 	font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;\A 8: 	margin: 0;\A 9: 	padding: 0;\A 10: 	margin-bottom: 10px;\A 11: }\A 12: "; }
