@@ -1,181 +1,142 @@
-@charset "utf-8";
-
 /*
  http://www.colourlovers.com/print/trends/magazines/7871/Pop_Africana_|_Year1_Issue1
 */
-
 /* Site-wide resets */
 /* Site-wide resets */
 /* Site-wide resets */
 BODY {
-	font-family:Georgia, "Times New Roman", Times, serif;
-}
+  font-family: Georgia, "Times New Roman", Times, serif; }
 
 H1, H2, H3, H4 {
-	font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
-}
+  font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif; }
 
 H1 {
-	margin-bottom: 5px;
-	margin-top: 5px;
-}
+  margin-bottom: 5px;
+  margin-top: 5px; }
 
 H2 {
-	margin:0;
-}
+  margin: 0; }
 
 H2 .link {
-	font-size:65%;
-}
+  font-size: 65%; }
 
 A:hover {
-	background-color: blue;
-	color: white;
-}
+  background-color: blue;
+  color: #fff; }
 
 /* Helpers */
 /* Helpers */
 /* Helpers */
-
 .button {
-	font-size:115%;
-}
+  font-size: 115%; }
 
-.leftspacer { /* don't put on the grid */
-	margin-left: 10px;
-}
+.leftspacer {
+  /* don't put on the grid */
+  margin-left: 10px; }
 
 .strikeout {
-	text-decoration: line-through;
-	font-size: 75%;
-	color: #888;
-}
+  text-decoration: line-through;
+  font-size: 75%;
+  color: #888888; }
 
 .subnote {
-	font-size: 85%;
-	color: #888;
-}
+  font-size: 85%;
+  color: #888888; }
 
 /* Struts */
 /* Struts */
 /* Struts */
-
 #header {
-	background-color: #3F4038;
-}
+  background-color: #3F4038; }
 
 #header H1 {
-	color: white;
-}
+  color: white; }
 
 #header H1 A {
-	text-decoration: none;
-	color: #62BECB;
-}
+  text-decoration: none;
+  color: #62BECB; }
 
 #header H1 A:hover {
-	background: none;
-}
+  background: none; }
 
 #navigation {
-	margin-top: 6px;
-	color: white;
-}
+  margin-top: 6px;
+  color: white; }
 
 #navigation A {
-	color: white;
-	text-decoration: none;
-}
+  color: white;
+  text-decoration: none; }
 
 #navigation A:hover {
-	background: none;
-}
+  background: none; }
 
 .checklist_title A {
-	text-decoration: none;
-}
+  text-decoration: none; }
 
 .checklist_title SPAN {
-	font-size:60%;
-	color: #888;
-}
+  font-size: 60%;
+  color: #888888; }
 
-.yo { /* pay attention to me! */
-	background-color: yellow;
-}
+.yo {
+  /* pay attention to me! */
+  background-color: yellow; }
 
 #Flash {
-	margin-top: 5px;
-	padding-left: 12px;
-	padding-right: 12px;
-	padding-top: 10px;
-	padding-bottom: 10px;
-	display: inline-block;
-}
-
-#Flash.success {
-	background-color: #00CC00;
-}
-
-#Flash.notice {
-	background-color: yellow;
-}
-
-#Flash P {
-	margin: 0;
-	padding: 0;
-	font-size: 85%;
-	font-weight: 600;
-}
+  margin-top: 5px;
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  display: inline-block; }
+  #Flash.success {
+    background-color: #00CC00; }
+  #Flash.notice {
+    background-color: yellow; }
+  #Flash P {
+    margin: 0;
+    padding: 0;
+    font-size: 85%;
+    font-weight: 600; }
 
 /* Checklist edit screen */
 /* Checklist edit screen */
 /* Checklist edit screen */
-
 #FinishedBlock {
-	padding: 10px;
-}
-
-#SubmitArea {	
-	padding-top:10px;
-	background-color:#F2F0EA;
-	padding-left:6px;
-	padding-bottom:8px;
-	border:1px solid #ADABA8;
-}
-
-#SubmitAreaControls {
-	float: left;
-}
-
-#SubmitAreaLoading {
-	float:right;
-	padding-top: 6px;
-	padding-right: 6px;
-}
-
-H3.emails {
-	font-size:100%;
-	color:#333;
-	font-weight:normal;
-	padding:0;
-	margin:0;
-}
+  padding: 10px; }
 
 #SubmitArea {
-	width: 548px;
-}
+  padding-top: 10px;
+  background-color: #F2F0EA;
+  padding-left: 6px;
+  padding-bottom: 8px;
+  border: 1px solid #ADABA8; }
+
+#SubmitAreaControls {
+  float: left; }
+
+#SubmitAreaLoading {
+  float: right;
+  padding-top: 6px;
+  padding-right: 6px; }
+
+H3.emails {
+  font-size: 100%;
+  color: #333;
+  font-weight: normal;
+  padding: 0;
+  margin: 0; }
+
+#SubmitArea {
+  width: 548px; }
 
 .checklistbox {
-	height:15em;
-	border:none;
-	width: 545px;
-}
+  height: 15em;
+  border: none;
+  width: 545px; }
 
 .textarea {
-	border-left:1px solid #ADABA8;
-	border-right:1px solid #ADABA8;
-	border-top:1px solid #ADABA8;
-	padding: 5px;
-	width: 544px;
-}
+  border-left: 1px solid #adaba8;
+  border-right: 1px solid #adaba8;
+  border-top: 1px solid #adaba8;
+  padding: 5px;
+  width: 544px; }
