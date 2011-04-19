@@ -7,7 +7,6 @@ gem 'rails', '3.0.5'
 
 gem 'sqlite3'
 gem 'devise', '1.2.1'
-
 gem 'haml', '3.0.25'
 
 # Use unicorn as the web server
